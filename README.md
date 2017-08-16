@@ -26,6 +26,8 @@ Make and pltoly accounts and configure with python on your computer, then you ar
 
 Acquires data from the 2 temperature sensors and the humidity sensor, then publishes the data through a data broker to node-red. 
 
+# xnig_nodered
 
+Once you have installed node red and have the GUI open on a browser, copy thsi script to your clipboard and menu,import,clipboard,past,import to add our flow to your node red page
 
 
