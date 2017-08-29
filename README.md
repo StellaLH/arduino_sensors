@@ -20,7 +20,7 @@ By un-commenting sections, different sensor values can be displayed on the TTF s
 
 Acquires data from the 2 temperature sensors and the humidity sensor, then sends to Plotly.
 
-Make and pltoly accounts and configure with python on your computer, then you are able to embed the graphs onto webpages. For example, view our sensor data webpage https://xnigsensordata.wordpress.com/temperature-humidity-sensors/
+Make and pltoly accounts and configure with python on your computer, then you are able to embed the graphs onto webpages. For example, view our sensor data webpage https://xnig.wordpress.com/temperature-humidity-sensors/
 
 # temp_hum_volts_nodered.py
 
