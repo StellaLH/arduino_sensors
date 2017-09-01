@@ -30,4 +30,10 @@ Acquires data from the 2 temperature sensors and the humidity sensor, then publi
 
 Once you have installed node red and have the GUI open on a browser, copy this script to your clipboard and select  menu,import,clipboard,past,import on the Node-RED editor. Hit deploy and open the dashboard to see sensor data displayed dynamically.
 
+# current_sensor
+
+When using the current clamp,  ensure a scaling ccircuit is used to scale the output voltages between 0V and +5V. The circuit to do so is in the report, but the 2 x 10kOhm resistors can be increased if a very small current is used. The 33kOhm resisor is just to stop static between the wires. The capacitor is just for reducing noise, whilst prototyping, consider changing / removing. 
+
+After setting up the circuit, upload the current_sensor sketch to the Arduino.
+
 
