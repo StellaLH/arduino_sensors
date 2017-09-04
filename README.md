@@ -54,7 +54,7 @@ Script to send TMP36 sensor data to Node-RED over topic /xnig/sensors/temp1, and
 Ensure there is a file called t1_sensor_data.txt in the same directory as this script.
 
 
-# temperature1.py
+# temperature2.py
 Script to send LM35 sensor data to Node-RED over topic /xnig/sensors/temp2.
 Ensure there is a file called t2_sensor_data.txt in the same directory as this script.
 
