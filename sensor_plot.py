@@ -66,27 +66,27 @@ if grapher == 'pyplot':
     pytrace6=data_h1[points*-1:,2]
     
     if t1=='y':
-        plt.plot(time_xdata[points*-1:],pytrace1, label="Temp 1")
+        plt.plot(time_xdata_t1[points*-1:],pytrace1, label="Temp 1")
     else:
         pass
     if t1v=='y':
-        plt.plot(time_xdata[points*-1:],pytrace2, label ="Temp 1 Voltages")
+        plt.plot(time_xdata_t1[points*-1:],pytrace2, label ="Temp 1 Voltages")
     else:
         pass
     if t2=='y':
-        plt.plot(time_xdata[points*-1:],pytrace3, label="Temp 2")
+        plt.plot(time_xdata_t2[points*-1:],pytrace3, label="Temp 2")
     else:
         pass
     if t2v=='y':
-        plt.plot(time_xdata[points*-1:],pytrace4, label="Temp 2 Voltages")
+        plt.plot(time_xdata_t2[points*-1:],pytrace4, label="Temp 2 Voltages")
     else:
         pass
     if h=='y':
-        plt.plot(time_xdata[points*-1:],pytrace5, label="Humidity")
+        plt.plot(time_xdata_h1[points*-1:],pytrace5, label="Humidity")
     else:
         pass
     if hv=='y':
-        plt.plot(time_xdata[points*-1:],pytrace6, label= "Humidity Voltages")
+        plt.plot(time_xdata_h1[points*-1:],pytrace6, label= "Humidity Voltages")
     else:
         pass   
     plt.legend(bbox_to_anchor=(0.5, 1),loc=8, ncol=2
@@ -98,7 +98,7 @@ elif grapher=='plotly':
     if t1=='y':
         trace1=Scatter(
         x=time_xdata_t1[points*-1:],
-        y= data[points*-1:,1],
+        y= data_t1[points*-1:,1],
         mode='lines+markers',
         name='Temperature 1\n (degrees C)'
     )
@@ -108,7 +108,7 @@ elif grapher=='plotly':
     if t1v=='y':
         trace2=Scatter(
         x=time_xdata_t1[points*-1:],
-        y= data[points*-1:,2],
+        y= data_t1[points*-1:,2],
         mode='lines+markers',
         name='Temperature 1 Voltage'
     )
@@ -118,7 +118,7 @@ elif grapher=='plotly':
     if t2=='y':
         trace3=Scatter(
         x=time_xdata_t2[points*-1:],
-        y= data[points*-1:,3],
+        y= data_t2[points*-1:,1],
         mode='lines+markers',
         name='Temperature 2\n (degrees C)'
     
@@ -129,7 +129,7 @@ elif grapher=='plotly':
     if t2v=='y':
         trace4=Scatter(
         x=time_xdata_t2[points*-1:],
-        y= data[points*-1:,4],
+        y= data_t2[points*-1:,2],
         mode='lines+markers',
         name='Temperature 2 Voltage'
     )
@@ -139,7 +139,7 @@ elif grapher=='plotly':
     if h=='y':
         trace5=Scatter(
         x=time_xdata_h1[points*-1:],
-        y= data[points*-1:,5],
+        y= data_h1[points*-1:,1],
         mode='lines+markers',
         name='Humidity'
     )
@@ -149,7 +149,7 @@ elif grapher=='plotly':
     if hv=='y':
         trace6=Scatter(
         x=time_xdata_h1[points*-1:],
-        y= data[points*-1:,6],
+        y= data_h1[points*-1:,2],
         mode='lines+markers',
         name='Humidity Voltage\n (%)'
     )
@@ -163,3 +163,5 @@ elif grapher=='plotly':
     
 else:
     print "Please chose a graphing option given in the menu"
+
+
