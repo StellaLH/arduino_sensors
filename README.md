@@ -51,21 +51,25 @@ Arduino sketch when you connect a single MEAS SEN-09196 piezo vibration sensor t
 
 # temperature1.py
 Script to send TMP36 sensor data to Node-RED over topic /xnig/sensors/temp1, and timestamps to topic /xnig/sensors/timestamp.
-Ensure there is a file called t1_sensor_data.txt in the same directory as this script.
+Ensure there is a file called t1_sensor_data.txt in the same directory as this script, to save sensor data and voltages.
 
 
 # temperature2.py
 Script to send LM35 sensor data to Node-RED over topic /xnig/sensors/temp2.
-Ensure there is a file called t2_sensor_data.txt in the same directory as this script.
+Ensure there is a file called t2_sensor_data.txt in the same directory as this script, to save sensor data and voltages.
 
 
 # humidity1.py
 Script to send HS1101LF sensor data to Node-RED over topic /xnig/sensors/hum1.
-Ensure there is a file called h1_sensor_data.txt in the same directory as this script.
+Ensure there is a file called h1_sensor_data.txt in the same directory as this script, to save sensor data and voltages.
 
 
 # vibration1.py
 Script to send piezo vibration sensor data to Node-RED over topic /xnig/sensors/vib1.
-Ensure there is a file called v1_sensor_data.txt in the same directory as this script.
+Ensure there is a file called v1_sensor_data.txt in the same directory as this script, to save sensor data and voltages.
 
+# sensor_plot.py
+
+Plots the CSV files t1_sensor_data.txt, t2_sensor_data.txt, h1_sensor_data.txt and v1_sensor_data.txt using Plotly or matplotlib.
+Uses raw inputs to decide which graphing software and which data sets should be plot.
 
