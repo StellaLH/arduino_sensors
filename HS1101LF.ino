@@ -11,7 +11,7 @@ void loop() {
   String hum= String(humidity);
   Serial.println(hum);
   delay(250); //quarter second delay between each data point 
-  Serial.println(volt_h)
+  Serial.println(volt_h);
   delay(250);
   
 }
