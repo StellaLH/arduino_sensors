@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
 """
-Created on Mon Sep  4 12:52:40 2017
+Created on Mon Sep  4 12:43:15 2017
 
 @author: stella
 """
+
 #import modules
 import serial
 import time as t
@@ -13,7 +14,7 @@ import paho.mqtt.client as mqtt #import the client
 import time
 
 #setup 
-serial_port='/dev/ttyUSB0' # check on Arduino IDE which port used
+serial_port='/dev/ttyUSB1' # check on Arduino IDE which port used
 baud_rate=9600
 
 #setup MQTT connection
@@ -26,47 +27,76 @@ def on_message(client, userdata, message):
     print("message qos=",message.qos)
     print("message retain flag=",message.retain)
 
-
+i=0 
 #loop acquire data
 try:
-    print "Starting acquisition of temperature 2..."
+    print "Starting acquisition of temperature 1..."
     print "Acquisition Initiated! \nTo stop data acquisition, press 'Ctrl' + 'C', or press STOP if using Spyder."
     while True:
         with open('t2_sensor_data.txt','a') as f:
-	
-            """
-            Read data from serial
-            """ 
-            ser=serial.Serial(serial_port, baud_rate)
-           
-            #Temperature 2 
-            line=ser.readline()
-            line=str(line.decode("utf-8"))
-            l=(float(line))
-		
-            #Temperature 2 Voltage	
-            line=ser.readline()
-            line=float(line.decode("utf-8"))
-            m=(float(line))
+                       
+            if i==60: #only saves to CSV once every minute
+                """
+                Read data from serial
+                """ 
+                ser=serial.Serial(serial_port, baud_rate)
+               
+                #Temperature 2 
+                line=ser.readline()
+                line1=str(line.decode("utf-8"))
+                while len(line1)!= 7.0 and len(line1)!=6.0:
+                    line=ser.readline()
+                    line1=str(line.decode("utf-8"))
+                l=(float(line1))
+    		           
+                """
+                Save serial data to CSV
+                """
+                time_str=t.strftime("%Y%m%d%H%M%S")
+                f.write("%s," %time_str) #time stamp
+                f.write("%s\n" %l) #temp1
+                
+                """
+                Publish data to MQTT
+                """
+                                
+                #publish temperature 1
+                client.on_message=on_message #attach function to callback
+                client.connect(broker_address) #connect to broker
+                client.loop_start() #start the loop
+                print("Publishing message to topic",l,"/xnig/sensors/temp2")
+                client.publish("/xnig/sensors/temp2",l)
+                client.loop_stop()
+                i=0
             
-            """
-            Save serial data to CSV
-            """
-            time_str=t.strftime("%Y%m%d%H%M%S")
-            f.write("%s," %time_str) #time stamp
-            f.write("%s," %l) #temp2
-            f.write("%s," %m) #temp2 votlage
+            else:
+                """
+                Read data from serial
+                """ 
+                ser=serial.Serial(serial_port, baud_rate)
+               
+                #Temperature 2 
+                line=ser.readline()
+                line1=str(line.decode("utf-8"))
+                while len(line1)!= 7.0 and len(line1)!=6.0:
+                    line=ser.readline()
+                    line1=str(line.decode("utf-8"))
+                l=(float(line1))
+
+                """
+                Publosh to MQTT
+                """
+
+                #publish temperature 2
+                client.on_message=on_message #attach function to callback
+                client.connect(broker_address) #connect to broker
+                client.loop_start() #start the loop
+                print("Publishing message to topic",l,"/xnig/sensors/temp2")
+                client.publish("/xnig/sensors/temp2",l)
+                client.loop_stop()
+                
+                i+=1
             
-            """
-            Publish data to MQTT
-            """          
-            #publish temperature 2
-            client.on_message=on_message #attach function to callback
-            client.connect(broker_address) #connect to broker
-            client.loop_start() #start the loop
-            print("Publishing message to topic",l,"/xnig/sensors/temp2")
-            client.publish("/xnig/sensors/temp2",l)
-            client.loop_stop()   
 
 except KeyboardInterrupt:   
     print "\nFinishing acquisition..."
