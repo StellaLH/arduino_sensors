@@ -1,7 +1,6 @@
 void setup() {
   // put your setup code here, to run once:
   Serial.begin(9600);
-  TFTscreen.begin();
   delay(10000); // 10 second delay before data transfer starts
 }
 
