@@ -69,7 +69,9 @@ Script to send piezo vibration sensor data to Node-RED over topic /xnig/sensors/
 Ensure there is a file called v1_sensor_data.txt in the same directory as this script, to save sensor data and voltages.
 
 # sensor_plot.py
-
+BEST PLOTS EVER!!
 Plots the CSV files t1_sensor_data.txt, t2_sensor_data.txt, h1_sensor_data.txt and v1_sensor_data.txt using Plotly or matplotlib.
-Uses raw inputs to decide which graphing software and which data sets should be plot.
+Uses raw inputs to decide which graphing software and which data sets should be plot and user can select how many data points they want to view.
+
+To setup Plotly, follow this short setup https://xnig.wordpress.com/plotly/ and get the best graphs ever!
 
