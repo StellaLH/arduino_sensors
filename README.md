@@ -40,6 +40,12 @@ When using the current clamp,  ensure a scaling ccircuit is used to scale the ou
 
 After setting up the circuit, upload the current_sensor sketch to the Arduino.
 
+This sketch is for the current clamp. Uploads to an Arduino and edit the analogue pin and correction value accordingly.
+
+Using our current clamp, the max input current is 30A, the number of turns in the coil is 1800 and the burden resistor used is 33ohms. These values lead to a correction value of 54.55 (2 d.p.).
+
+To deduce the correction value, follow the equations here: http://www.homautomation.org/2013/09/17/current-monitoring-with-non-invasive-sensor-and-arduino/
+
 # TMP36.ino ==> for single temperature sensor
 Arduino sketch when you connect a single TMP36 temperature sensor to the Arduino.
 # LM35.ino  ==> for single temperature sensor
@@ -74,11 +80,4 @@ Plots the CSV files t1_sensor_data.txt, t2_sensor_data.txt, h1_sensor_data.txt a
 Uses raw inputs to decide which graphing software and which data sets should be plot and user can select how many data points they want to view.
 
 To setup Plotly, follow this short setup https://xnig.wordpress.com/plotly/ and get the best graphs ever!
-
-# Current Sensor
-This sketch is for the current clamp. Uploads to an Arduino and edit the analogue pin and correction value accordingly.
-
-Using our current clamp, the max input current is 30A, the number of turns in the coil is 1800 and the burden resistor used is 33ohms. These values lead to a correction value of 54.55 (2 d.p.).
-
-To deduce the correction value, follow the equations here: http://www.homautomation.org/2013/09/17/current-monitoring-with-non-invasive-sensor-and-arduino/
 
