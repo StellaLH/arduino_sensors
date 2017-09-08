@@ -19,17 +19,11 @@ import paho.mqtt.client as mqtt #import the client
 import time
 
 #setup 
-serial_port='/dev/ttyACM2' # check on Arduino IDE which port used
+serial_port='/dev/ttyUSB0' # check on Arduino IDE which port used
 baud_rate=9600
-k=[] #dumps for data when saving to csv
-l=[]
-m=[]
-n=[]
-o=[]
-voltages=[]
 
-#setup mqtt connection
-broker_address="152.78.131.193" #IP address of labbroker.soton.ac.uk
+#setup MQTT connection
+broker_address="labbroker.soton.ac.uk" #IP address of labbroker.soton.ac.uk
 client = mqtt.Client("P1") #create new instance
 
 def on_message(client, userdata, message):
@@ -46,39 +40,47 @@ try:
     print "Acquisition Initiated! \nTo stop data acquisition, press 'Ctrl' + 'C', or press STOP if using Spyder."
     while True:
         with open('sensor_data.txt','a') as f:
-
+	
+            """
+            Read data from serial
+            """ 
             ser=serial.Serial(serial_port, baud_rate)
-            #k=append(i)
-
-            
+           
+            #Temperature 1 
             line=ser.readline()
             line=str(line.decode("utf-8"))
             l=(float(line))
-
-            
+		
+	    #Temperature 1 Voltage	
             line=ser.readline()
             line=float(line.decode("utf-8"))
             m=(float(line))
             
+            #Temperature 2
             line=ser.readline()
             line=float(line.decode("utf-8"))
             n=(float(line))
             
+            #Temperature 2 Voltage
             line=ser.readline()
             line=float(line.decode("utf-8"))
             o=(float(line))
             
+            #Relative Humidity
             line=ser.readline()
             line=float(line.decode("utf-8"))
             p=(float(line))
             
+            #Relative Humidity Voltage
             line=ser.readline()
             line=float(line.decode("utf-8"))
             q=(float(line))
             
             
-            
-            time_str=t.strftime("%H%M%S")
+            """
+            Save serial data to .csv
+            """
+            time_str=t.strftime("%Y%m%d%H%M%S")
             f.write("%s," %time_str) #time stamp
             f.write("%s," %l) #temp1
             f.write("%s," %m) #temp1 votlage
@@ -89,43 +91,51 @@ try:
             f.write("\n")
             f.close()
 
-
+            """
+            Publish data to MQTT
+            """
             #publish timestamp
             client.on_message=on_message #attach function to callback
+            #client.username_pw_set("xnigsensors@gmail.com", "03c34bc4")
             client.connect(broker_address) #connect to broker
             client.loop_start() #start the loop
-            client.subscribe("arduino/timestamp")
-            print("Publishing message to topic","arduino/timestamp")
+            client.subscribe("xnig/timestamp")
+            print("Publishing message to topic","/xnigsensors@gmail.com/xnig/timestamp")
             time_str=float(t.strftime("%H%M%S"))
-            client.publish("arduino/timestamp",time_str)
+            client.publish("/xnigsensors@gmail.com/xnig/timestamp",time_str)
             client.loop_stop()            
             
             #publish temperature 1
             client.on_message=on_message #attach function to callback
+            #client.username_pw_set("xnigsensors@gmail.com", "03c34bc4")
             client.connect(broker_address) #connect to broker
             client.loop_start() #start the loop
-            client.subscribe("arduino/temp1")
-            print("Publishing message to topic","arduino/temp1")
-            client.publish("arduino/temp1",l)
+            client.subscribe("xnig/temp1")
+            print("Publishing message to topic",l,"/xnigsensors@gmail.com/xnig/temp1")
+            client.publish("/xnigsensors@gmail.com/xnig/temp1",l)
             client.loop_stop()   
             
             #publish temperature 2
             client.on_message=on_message #attach function to callback
+            #client.username_pw_set("xnigsensors@gmail.com", "03c34bc4")
             client.connect(broker_address) #connect to broker
             client.loop_start() #start the loop
-            client.subscribe("arduino/temp2")
-            print("Publishing message to topic","arduino/temp2")
-            client.publish("arduino/temp2",n)
+            client.subscribe("xnig/temp2")
+            print("Publishing message to topic",n,"/xnigsensors@gmail.com/xnig/temp2")
+            client.publish("/xnigsensors@gmail.com/xnig/temp2",n)
             client.loop_stop()   
             
             #publish humidity    
             client.on_message=on_message #attach function to callback
+            #client.username_pw_set("xnigsensors@gmail.com", "03c34bc4")
             client.connect(broker_address) #connect to broker
             client.loop_start() #start the loop
-            client.subscribe("arduino/hum")
-            print("Publishing message to topic","arduino/hum")
-            client.publish("arduino/hum",p)
+            client.subscribe("xnig/hum")
+            print("Publishing message to topic",p,"/xnigsensors@gmail.com/xnig/hum")
+            client.publish("/xnigsensors@gmail.com/xnig/hum",p)
             client.loop_stop()   
+            
+#            time.sleep(20)
             
         
 except KeyboardInterrupt:   
